@@ -1,13 +1,12 @@
 package top.bigking.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.bigking.entity.ResponseData;
 import top.bigking.entity.User;
 import top.bigking.service.UserService;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @Author ABKing
@@ -19,8 +18,8 @@ public class UserController {
     @Resource
     private UserService userService;
     @PostMapping("login")
-    User login(@RequestBody User user){
+    ResponseData<Map, Map> login(@RequestBody User user){
         return userService.login(user.getUsername(), user.getPassword());
-
     }
+
 }

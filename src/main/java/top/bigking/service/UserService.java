@@ -1,5 +1,6 @@
 package top.bigking.service;
 
+import top.bigking.entity.ResponseData;
 import top.bigking.entity.User;
 
 import java.util.List;
@@ -14,12 +15,11 @@ public interface UserService {
     /**
      * 登录
      */
-    User login(String username, String password);
-
+    ResponseData login(String username, String password);
     /**
      * 用户管理，查询所有用户信息
      */
-    List<User> queryAllUsers();
+    List<User> queryAllUsers(Integer pageNum, Integer pageSize);
 
     /**
      * 添加用户
