@@ -1,11 +1,13 @@
 package top.bigking.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 import top.bigking.entity.ResponseData;
 import top.bigking.entity.User;
 import top.bigking.service.UserService;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,11 @@ public class UserController {
     @PostMapping("login")
     ResponseData<Map, Map> login(@RequestBody User user){
         return userService.login(user.getUsername(), user.getPassword());
+    }
+    @GetMapping("users/{pageNum}/{pageSize}")
+    public ResponseData<Map, Map> getUsers(@PathVariable Integer pageNum, @PathVariable Integer pageSize){
+        return userService.queryAllUsers(pageNum, pageSize);
+
     }
 
 }

@@ -22,4 +22,8 @@
     <select id="login" resultMap="userMap">
         select * from sp_user where username = #{param1} and password = #{param2}
     </select>
+
+    <select id="queryAllUsers" resultMap="userMap">
+        select * from sp_user
+    </select>
 </mapper>

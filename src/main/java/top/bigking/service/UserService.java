@@ -3,7 +3,7 @@ package top.bigking.service;
 import top.bigking.entity.ResponseData;
 import top.bigking.entity.User;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @Author ABKing
@@ -19,7 +19,7 @@ public interface UserService {
     /**
      * 用户管理，查询所有用户信息
      */
-    List<User> queryAllUsers(Integer pageNum, Integer pageSize);
+    ResponseData queryAllUsers(Integer pageNum, Integer pageSize);
 
     /**
      * 添加用户
