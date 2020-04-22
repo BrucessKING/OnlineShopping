@@ -1,6 +1,9 @@
 package top.bigking.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
+    @JsonProperty(value = "uId")
     private Integer userId;
 
     private String username;
@@ -9,6 +12,7 @@ public class User {
 
     private String password;
 
+    @JsonProperty(value = "email")
     private String userEmail;
 
     private String userEmailCode;
@@ -19,6 +23,7 @@ public class User {
 
     private String userQq;
 
+    @JsonProperty(value = "mobile")
     private String userTel;
 
     private String userXueli;

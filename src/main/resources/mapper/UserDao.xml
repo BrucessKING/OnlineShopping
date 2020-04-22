@@ -20,10 +20,27 @@
 
     </resultMap>
     <select id="login" resultMap="userMap">
-        select * from sp_user where username = #{param1} and password = #{param2}
+        select * from sp_user where username = #{param1}
     </select>
 
     <select id="queryAllUsers" resultMap="userMap">
         select * from sp_user
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id" parameterType="user">
+        <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sp_user(`username`, `password`, `user_email`, `user_tel`, `create_time`, `update_time`)
+         values (#{username}, #{password}, #{userEmail}, #{userTel}, #{createTime}, #{updateTime})
+
+    </insert>
+
+    <update id="updateUserState">
+        update sp_user set is_active = #{param2} where user_id = #{param1.userId}
+    </update>
+
+    <select id="queryById" resultMap="userMap">
+        select * from sp_user where user_id = #{id}
     </select>
 </mapper>

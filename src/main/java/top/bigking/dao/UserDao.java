@@ -13,7 +13,7 @@ public interface UserDao {
     /**
      * 登录
      */
-    User login(String username, String password);
+    User login(String username);
 
     /**
      * 用户管理，查询所有用户信息

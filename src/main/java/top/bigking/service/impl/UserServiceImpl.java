@@ -10,10 +10,8 @@ import top.bigking.service.UserService;
 import top.bigking.util.PasswordUtil;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author ABKing
@@ -26,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseData<Map, Map> login(String username, String password) {
-        User user1 = userDao.login(username, password);
+        User user1 = userDao.login(username);
         //用户名不存在或密码错误
         if (user1 == null || !PasswordUtil.decrypt(password, user1.getPassword())) {
             Map<String, String> meta = new LinkedHashMap<>();
@@ -80,18 +78,78 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer addUser(User user) {
-        return null;
+    public ResponseData<Map, Map> addUser(User user) {
+        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        user.setCreateTime(Integer.parseInt(date));
+        user.setUpdateTime(Integer.parseInt(date));
+        user.setPassword(PasswordUtil.encryption(user.getPassword()));
+        Integer result = userDao.addUser(user);
+        if(result < 1){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "添加用户失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+        Map data = new LinkedHashMap();
+        data.put("id", user.getUserId());
+        data.put("username", user.getUsername());
+        data.put("mobile", user.getUserTel());
+        data.put("type", 1);
+        data.put("openid", user.getQqOpenId());
+        data.put("email", user.getUserEmail());
+        data.put("create_time", user.getCreateTime());
+        data.put("modify_time", null);
+        data.put("is_delete", false);
+        data.put("is_active", false);
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "用户创建成功");
+        meta.put("stauts", "201");
+        return new ResponseData(data, meta);
     }
 
     @Override
-    public Integer updateUserState(User user, String stateType) {
-        return null;
+    public ResponseData<Map, Map> updateUserState(User user, String stateType) {
+        Integer result = userDao.updateUserState(user, stateType);
+        if(result < 1){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "设置状态失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+        User user1 = userDao.queryById(user.getUserId());
+        Map data = new LinkedHashMap();
+        data.put("id", user1.getUserId());
+        data.put("rid", "rid");//ssssssssssssss
+        data.put("username", user1.getUsername());
+        data.put("mobile", user1.getUserTel());
+        data.put("email", user1.getUserEmail());
+        data.put("mg_state", user1.getIsActive().equals("是") ? 1 : 0);
+
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "设置状态成功");
+        meta.put("stauts", "200");
+        return new ResponseData(data, meta);
     }
 
     @Override
-    public User queryById(Integer id) {
-        return null;
+    public ResponseData<Map, Map> queryById(Integer id) {
+        User user = userDao.queryById(id);
+        if(user == null){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "查询失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+        Map data = new LinkedHashMap();
+        data.put("id", user.getUserId());
+        data.put("username", user.getUsername());
+        data.put("role_id", 0);//sssssssssssssssssssssss
+        data.put("mobile", user.getUserTel());
+        data.put("email", user.getUserEmail());
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "查询成功");
+        meta.put("stauts", "200");
+        return new ResponseData(data, meta);
     }
 
     @Override

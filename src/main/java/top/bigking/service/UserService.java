@@ -24,17 +24,17 @@ public interface UserService {
     /**
      * 添加用户
      */
-    Integer addUser(User user);
+    ResponseData addUser(User user);
 
     /**
      * 修改用户状态
      */
-    Integer updateUserState(User user, String stateType);
+    ResponseData updateUserState(User user, String stateType);
 
     /**
      * 根据ID查询用户信息
      */
-    User queryById(Integer id);
+    ResponseData queryById(Integer id);
 
     /**
      * 编辑用户提交
