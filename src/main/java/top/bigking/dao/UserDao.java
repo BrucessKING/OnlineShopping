@@ -48,6 +48,6 @@ public interface UserDao {
     /**
      * 分配用户角色
      */
-    void assignUserRole(Integer userId, Integer roleId);
+    Integer assignUserRole(Integer userId, Integer roleId);
 
 }

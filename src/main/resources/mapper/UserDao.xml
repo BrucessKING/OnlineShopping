@@ -17,6 +17,7 @@
         <result column="user_introduce" property="createTime"/>
         <result column="create_time" property="updateTime"/>
         <result column="update_time" property="userIntroduce"/>
+        <result column="role_id" property="roleId"/>
 
     </resultMap>
     <select id="login" resultMap="userMap">
@@ -43,4 +44,16 @@
     <select id="queryById" resultMap="userMap">
         select * from sp_user where user_id = #{id}
     </select>
+
+    <update id="updateUser" parameterType="user">
+        update sp_user set user_email = #{userEmail}, user_tel = #{userTel} where user_id = #{userId}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        delete from sp_user where user_id = #{id}
+    </delete>
+
+    <update id="assignUserRole">
+        update sp_user set role_id = #{param2} where user_id = #{param1}
+    </update>
 </mapper>

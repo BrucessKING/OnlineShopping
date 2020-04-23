@@ -39,16 +39,16 @@ public interface UserService {
     /**
      * 编辑用户提交
      */
-    Integer updateUser(User user);
+    ResponseData updateUser(User user);
 
     /**
      * 删除单个用户
      */
-    Integer deleteById(Integer id);
+    ResponseData deleteById(Integer id);
 
     /**
      * 分配用户角色
      */
-    void assignUserRole(Integer userId, Integer roleId);
+    ResponseData assignUserRole(Integer userId, Integer roleId);
 
 }

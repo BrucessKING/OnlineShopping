@@ -36,6 +36,9 @@ public class User {
 
     private String userIntroduce;
 
+    @JsonProperty(value = "rid")
+    private Integer roleId;
+
     public Integer getUserId() {
         return userId;
     }
@@ -154,5 +157,13 @@ public class User {
 
     public void setUserIntroduce(String userIntroduce) {
         this.userIntroduce = userIntroduce == null ? null : userIntroduce.trim();
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

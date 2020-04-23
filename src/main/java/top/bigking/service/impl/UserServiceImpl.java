@@ -33,11 +33,11 @@ public class UserServiceImpl implements UserService {
             return new ResponseData(null, meta);
         }
 
-        Map<String, String> data = new LinkedHashMap<>();
+        Map data = new LinkedHashMap<>();
         data.put("id", user1.getUserId().toString());
-        data.put("rid", "0");
+        data.put("rid", user1.getRoleId());
         data.put("username", user1.getUsername());
-        data.put("mobile", "123");
+        data.put("mobile", user1.getUserTel());
         data.put("email", user1.getUserEmail());
         data.put("token", "token");
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             map.put("email", user.getUserEmail());
             map.put("create_time", user.getCreateTime());
             map.put("mg_state", user.getIsActive().equals("是")? true : false);
-            map.put("role_name", "超级管理员");
+            map.put("role_name", "超级管理员"); //ssssssssssssssss
             list.add(map);
         }
         data.put("users", list);
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
         User user1 = userDao.queryById(user.getUserId());
         Map data = new LinkedHashMap();
         data.put("id", user1.getUserId());
-        data.put("rid", "rid");//ssssssssssssss
+        data.put("rid", user1.getRoleId());
         data.put("username", user1.getUsername());
         data.put("mobile", user1.getUserTel());
         data.put("email", user1.getUserEmail());
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         Map data = new LinkedHashMap();
         data.put("id", user.getUserId());
         data.put("username", user.getUsername());
-        data.put("role_id", 0);//sssssssssssssssssssssss
+        data.put("role_id", user.getRoleId());
         data.put("mobile", user.getUserTel());
         data.put("email", user.getUserEmail());
         Map<String, String> meta = new LinkedHashMap<>();
@@ -153,17 +153,71 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateUser(User user) {
-        return null;
+    public ResponseData updateUser(User user) {
+        Integer result = userDao.updateUser(user);
+        if(result < 1){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "更新失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+        User user1 = userDao.queryById(user.getUserId());
+        Map data = new LinkedHashMap();
+        data.put("id", user1.getUserId());
+        data.put("username", user1.getUsername());
+        data.put("role_id", user1.getRoleId());
+        data.put("mobile", user1.getUserTel());
+        data.put("email", user1.getUserEmail());
+
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "更新成功");
+        meta.put("stauts", "200");
+        return new ResponseData(data, meta);
     }
 
     @Override
-    public Integer deleteById(Integer id) {
-        return null;
+    public ResponseData deleteById(Integer id) {
+        Integer result = userDao.deleteById(id);
+        if(result < 1){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "删除失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "删除成功");
+        meta.put("stauts", "200");
+        return new ResponseData(null, meta);
     }
 
     @Override
-    public void assignUserRole(Integer userId, Integer roleId) {
+    public ResponseData<Map, Map> assignUserRole(Integer userId, Integer roleId) {
+        try {
+            Integer result = userDao.assignUserRole(userId, roleId);
+        } catch (Exception e){
+            Map<String, String> meta = new LinkedHashMap<>();
+            meta.put("msg", "设置角色失败");
+            meta.put("stauts", "500");
+            return new ResponseData(null, meta);
+        }
+//        if(result < 1){
+//            Map<String, String> meta = new LinkedHashMap<>();
+//            meta.put("msg", "设置角色失败");
+//            meta.put("stauts", "500");
+//            return new ResponseData(null, meta);
+//        }
+        User user = userDao.queryById(userId);
+        Map data = new LinkedHashMap();
+        data.put("id", user.getUserId());
+        data.put("rid", user.getRoleId());
+        data.put("username", user.getUsername());
+        data.put("mobile", user.getUserTel());
+        data.put("email", user.getUserEmail());
 
+        Map<String, String> meta = new LinkedHashMap<>();
+        meta.put("msg", "设置角色成功");
+        meta.put("stauts", "200");
+        return new ResponseData(data, meta);
     }
 }
