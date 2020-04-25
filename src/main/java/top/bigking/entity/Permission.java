@@ -5,7 +5,7 @@ public class Permission {
 
     private String psName;
 
-    private Short psPid;
+    private short psPid;
 
     private String psC;
 

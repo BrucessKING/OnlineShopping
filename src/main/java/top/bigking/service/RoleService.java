@@ -1,6 +1,8 @@
 package top.bigking.service;
 
+import top.bigking.entity.RightTree;
 import top.bigking.entity.Role;
+import top.bigking.entity.RoleResult;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ public interface RoleService {
     /**
      * 获取角色列表
      */
-    List<Role> queryAllRoles();
+    List<RoleResult> queryAllRoles();
 
     /**
      * 添加角色
@@ -39,11 +41,11 @@ public interface RoleService {
     /**
      * 角色授权(更新Role表的数据)
      */
-    Integer authorizeRole(Role role);
+    Integer authorizeRole(Integer roleId, String rights);
 
     /**
      * 删除指定角色权限(从Role的ps_ids字段中删除指定的rightId)
      */
-    Integer deleteRightById(Integer roleId, Integer rightId);
+    List<RightTree> deleteRightById(Integer roleId, String rightId);
 
 }

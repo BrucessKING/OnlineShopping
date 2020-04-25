@@ -13,6 +13,16 @@ public class PermissionApi {
 
     private Integer psApiOrder;
 
+    private Permission permission;
+
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +69,18 @@ public class PermissionApi {
 
     public void setPsApiOrder(Integer psApiOrder) {
         this.psApiOrder = psApiOrder;
+    }
+
+    @Override
+    public String toString() {
+        return "PermissionApi{" +
+                "id=" + id +
+                ", psId=" + psId +
+                ", psApiService='" + psApiService + '\'' +
+                ", psApiAction='" + psApiAction + '\'' +
+                ", psApiPath='" + psApiPath + '\'' +
+                ", psApiOrder=" + psApiOrder +
+                ", permission=" + permission +
+                '}';
     }
 }
