@@ -1,9 +1,6 @@
 package top.bigking.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.bigking.entity.ResponseData;
 import top.bigking.service.RightService;
 
@@ -14,7 +11,7 @@ import java.util.Map;
  * Create by misty on 2020/4/21 21:57
  */
 
-
+@CrossOrigin
 @RestController
 public class RightController {
 

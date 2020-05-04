@@ -14,6 +14,7 @@ import java.util.Map;
  * @Author ABKing
  * @since 2020/4/14 下午4:48
  **/
+@CrossOrigin
 @RestController
 @RequestMapping("user")
 public class UserController {

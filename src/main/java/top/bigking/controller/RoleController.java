@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Create by misty on 2020/4/21 22:46
  */
+@CrossOrigin
 @Controller
 public class RoleController {
 
@@ -118,6 +119,7 @@ public class RoleController {
     @PostMapping("roles/{roleId}/rights")
     @ResponseBody
     ResponseData<Map, Map> giveRoleRightsById(@PathVariable String roleId,@RequestBody Map<String,String> map){
+        System.out.println(map);
         String rids = map.get("rids");
         Integer a = roleService.authorizeRole(Integer.parseInt(roleId),rids);
         Map<String,Object> meta = new HashMap<>();

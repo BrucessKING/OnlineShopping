@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
             map.put("id", user.getUserId());
             map.put("username", user.getUsername());
             map.put("mobile", user.getUserTel());
-            map.put("type", 1);
+            map.put("type", user.getIsActive().equals("是")? true : false);
             map.put("email", user.getUserEmail());
             map.put("create_time", user.getCreateTime());
             map.put("mg_state", user.getIsActive().equals("是")? true : false);
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
         data.put("id", user.getUserId());
         data.put("username", user.getUsername());
         data.put("mobile", user.getUserTel());
-        data.put("type", 1);
+        data.put("type", false);
         data.put("openid", user.getQqOpenId());
         data.put("email", user.getUserEmail());
         data.put("create_time", user.getCreateTime());

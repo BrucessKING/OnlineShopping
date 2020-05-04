@@ -34,7 +34,6 @@
         </selectKey>
         insert into sp_user(`username`, `password`, `user_email`, `user_tel`, `create_time`, `update_time`)
          values (#{username}, #{password}, #{userEmail}, #{userTel}, #{createTime}, #{updateTime})
-
     </insert>
 
     <update id="updateUserState">
