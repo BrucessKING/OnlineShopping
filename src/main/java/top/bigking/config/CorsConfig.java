@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("ABKing");
         registry.addMapping("/**")
                 .allowCredentials(true) //允许带上cookies
                 .allowedHeaders("*") //允许任意请求头

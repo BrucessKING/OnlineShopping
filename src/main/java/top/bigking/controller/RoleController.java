@@ -2,6 +2,7 @@ package top.bigking.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import top.bigking.annotation.AccessLimit;
 import top.bigking.entity.ResponseData;
 import top.bigking.entity.RightTree;
 import top.bigking.entity.Role;
@@ -27,6 +28,7 @@ public class RoleController {
 
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @GetMapping("roles")
     @ResponseBody
     ResponseData<Map, Map> getRoles(){
@@ -40,6 +42,7 @@ public class RoleController {
         return responseData;
     }
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @PostMapping("roles")
     @ResponseBody
     ResponseData<Map, Map> addRole(@RequestBody Role role){
@@ -59,6 +62,7 @@ public class RoleController {
     }
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @GetMapping("roles/{id}")
     @ResponseBody
     ResponseData<Map, Map> findRoleById(@PathVariable String id){
@@ -78,6 +82,7 @@ public class RoleController {
     }
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @PutMapping("roles/{id}")
     @ResponseBody
     ResponseData<Map, Map> editRoleById(@PathVariable String id,@RequestBody Role role){
@@ -98,6 +103,7 @@ public class RoleController {
     }
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @DeleteMapping("roles/{id}")
     @ResponseBody
     ResponseData<Map, Map> deleteRoleById(@PathVariable String id){
@@ -116,6 +122,7 @@ public class RoleController {
     }
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @PostMapping("roles/{roleId}/rights")
     @ResponseBody
     ResponseData<Map, Map> giveRoleRightsById(@PathVariable String roleId,@RequestBody Map<String,String> map){
@@ -135,6 +142,7 @@ public class RoleController {
         return responseData;
     }
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @DeleteMapping("roles/{roleId}/rights/{rightId}")
     @ResponseBody
     ResponseData<Map, Map> deleteRoleRightsById(@PathVariable String roleId,@PathVariable String rightId){

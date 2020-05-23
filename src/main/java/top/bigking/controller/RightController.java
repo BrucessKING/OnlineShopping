@@ -1,6 +1,7 @@
 package top.bigking.controller;
 
 import org.springframework.web.bind.annotation.*;
+import top.bigking.annotation.AccessLimit;
 import top.bigking.entity.ResponseData;
 import top.bigking.service.RightService;
 
@@ -20,6 +21,7 @@ public class RightController {
 
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @GetMapping("rights/{type}")
     @ResponseBody
     public ResponseData<Map, Map> getAllRights(@PathVariable String type){
@@ -29,6 +31,7 @@ public class RightController {
     }
 
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @GetMapping("menus")
     ResponseData<Map, Map> getLeftMenuRights(){
         ResponseData<Map, Map> responseData = null;

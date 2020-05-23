@@ -9,27 +9,49 @@
     <!-- mvc 请求映射处理器与适配器 -->
     <mvc:annotation-driven/>
     <!--配置视图解析器 默认的视图解析器- -->
-<!--    <bean id="defaultViewResolver"-->
-<!--          class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-<!--        <property name="viewClass"-->
-<!--                  value="org.springframework.web.servlet.view.JstlView" />-->
-<!--        <property name="contentType" value="text/html" />-->
-<!--        <property name="prefix" value="/WEB-INF/jsp/" />-->
-<!--        <property name="suffix" value=".jsp" />-->
-<!--    </bean>-->
+    <!-- 配置视图解析器 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800"
+                     allowed-methods="GET,POST,PUT,DELETE,PATCH,OPTIONS"/>
+    </mvc:cors>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <bean class="top.bigking.interceptor.TokenInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <bean class="top.bigking.interceptor.AccessInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- json 支持 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-    </bean>
-    <bean
-            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <bean
-                        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
             </list>
         </property>
     </bean>
     <!-- 静态资源文件的处理放行 配置方式一 -->
     <mvc:default-servlet-handler />
+
+    <!-- 配置基于XML的异常映射 -->
+    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- 配置异常类型和具体视图页面的对应关系 -->
+        <property name="exceptionMappings">
+            <!-- key属性指定异常全类名 -->
+            <!--标签体中写对应的视图(这个值要拼前后缀到具体路径)-->
+            <props>
+                <prop key="java.lang.Exception">error</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

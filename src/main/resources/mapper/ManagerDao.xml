@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.bigking.dao.ManagerDao">
+
+    <resultMap id="managerMap" type="top.bigking.entity.Manager">
+        <id column="mg_id" property="mgId"/>
+        <result column="mg_name" property="mgName"/>
+        <result column="mg_pwd" property="mgPwd"/>
+        <result column="mg_time" property="mgTime"/>
+        <result column="role_id" property="roleId"/>
+        <result column="mg_mobile" property="mgMobile"/>
+        <result column="mg_email" property="mgEmail"/>
+        <result column="mg_state" property="mgState"/>
+
+    </resultMap>
+    <select id="login" resultMap="managerMap">
+        select * from sp_manager where mg_name = #{param1}
+    </select>
+
+</mapper>

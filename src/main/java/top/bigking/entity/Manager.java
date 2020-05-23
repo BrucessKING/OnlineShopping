@@ -1,10 +1,12 @@
 package top.bigking.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Manager {
     private Integer mgId;
-
+    @JsonProperty(value = "username")
     private String mgName;
-
+    @JsonProperty(value = "password")
     private String mgPwd;
 
     private Integer mgTime;
@@ -16,6 +18,20 @@ public class Manager {
     private String mgEmail;
 
     private Byte mgState;
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "mgId=" + mgId +
+                ", mgName='" + mgName + '\'' +
+                ", mgPwd='" + mgPwd + '\'' +
+                ", mgTime=" + mgTime +
+                ", roleId=" + roleId +
+                ", mgMobile='" + mgMobile + '\'' +
+                ", mgEmail='" + mgEmail + '\'' +
+                ", mgState=" + mgState +
+                '}';
+    }
 
     public Integer getMgId() {
         return mgId;
